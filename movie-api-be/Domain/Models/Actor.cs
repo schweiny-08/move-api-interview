@@ -2,5 +2,8 @@
 {
   public class Actor : Person
   {
+    public Actor(string fullName) : base(fullName)
+    {
+    }
   }
 }

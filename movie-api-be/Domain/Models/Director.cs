@@ -2,5 +2,8 @@
 {
   public class Director : Person
   {
+    public Director(string fullName) : base(fullName)
+    {
+    }
   }
 }
