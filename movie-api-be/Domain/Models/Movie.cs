@@ -19,6 +19,13 @@
       Rating = rating;
     }
 
+    public bool MatchesTitle(string title) { 
+      return Title.Contains(title, StringComparison.OrdinalIgnoreCase);
+    }
+
+    public bool MatchesGenre(List<string> genres) {
+      return genres.All(genre => Genres.Any(domainGenre => string.Equals(domainGenre.Name, genre, StringComparison.OrdinalIgnoreCase)));
+    }
   }
 }
 

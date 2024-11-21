@@ -8,6 +8,6 @@ namespace movie_api_be.Application.Ports
 {
     public interface IMovieRepository
     {
-        Task<IEnumerable<Movie>> GetAllMoviesAsync();
+        Task<IEnumerable<Movie>> GetAllMoviesAsync(List<string>? genres, string? title);
     }
 }

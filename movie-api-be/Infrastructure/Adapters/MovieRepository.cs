@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using movie_api_be.Application.Ports;
 using movie_api_be.Domain.Models;
 using movie_api_be.Infrastructure.Adapters.DTOs;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace movie_api_be.Infrastructure.Adapters
 {
@@ -16,16 +17,14 @@ namespace movie_api_be.Infrastructure.Adapters
     {
       _filePath = filePath;
     }
-    public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
+    public async Task<IEnumerable<Movie>> GetAllMoviesAsync(List<string>? genres, string? title)
     {
 
       var jsonMovieData = await File.ReadAllTextAsync(_filePath);
 
-      var movieList = JsonSerializer.Deserialize<MoviesDto>(jsonMovieData);
+      var movieData = JsonSerializer.Deserialize<MoviesDto>(jsonMovieData)?.Movies;
 
-      var test = movieList.Movies;
-
-      return test.Select(
+      var moveList = movieData?.Select(
           m => new Movie(
                   m.Title,
                   m.Year,
@@ -35,6 +34,16 @@ namespace movie_api_be.Infrastructure.Adapters
                   m.Rating
               )
       );
+
+      if (!string.IsNullOrWhiteSpace(title)) { 
+        moveList = moveList?.Where(m => m.MatchesTitle(title));
+      }
+
+      if (genres != null && genres.Count > 0) { 
+        moveList = moveList?.Where(m => m.MatchesGenre(genres));
+      }
+
+      return moveList;
     }
   }
 }

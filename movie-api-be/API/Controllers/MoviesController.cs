@@ -7,22 +7,22 @@ using movie_api_be.Application.Services;
 
 namespace movie_api_be.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class MoviesController : ControllerBase
+  [ApiController]
+  [Route("api/[controller]")]
+  public class MoviesController : ControllerBase
+  {
+    private readonly MovieService _movieService;
+
+    public MoviesController(MovieService movieService)
     {
-        private readonly MovieService _movieService;
-
-        public MoviesController(MovieService movieService)
-        {
-            _movieService = movieService;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetMovies()
-        {
-            var movies = await _movieService.GetAllMoviesAsync();
-            return Ok(movies);
-        }
+      _movieService = movieService;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetMovies([FromQuery] string? genres, [FromQuery] string? title)
+    {
+      var movies = await _movieService.GetAllMoviesAsync(genres, title);
+      return Ok(movies);
+    }
+  }
 }
