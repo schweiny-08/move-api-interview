@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Grid2, TextField, Typography } from '@mui/material';
 import MovieFilter from '../Components/MovieFilter';
 import { useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -29,23 +29,30 @@ export default function MovieSearch() {
   return (
     <Box
       display="flex"
+      flexDirection="column"
       justifyContent="center"
-      alignItems="flex-start"
+      alignItems="center"
       height="100vh"
       padding={3}
     >
-      <Typography variant="h1">Welcome to the movie search engine!</Typography>
-      <Typography>You can also filter by genre and title</Typography>
-      <Box>
-        <MovieFilter
-          title={title}
-          genres={genres}
-          setTitle={setTitle}
-          setGenres={setGenres}
-        />
-        <Box>
-          <MovieList movies={movies} />
+      <Typography variant="h3">Welcome to the movie search engine!</Typography>
+      <Typography>You can filter by genre and title</Typography>
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        width="100%"
+      >
+        <Box padding={2}>
+          <MovieFilter
+            title={title}
+            genres={genres}
+            setTitle={setTitle}
+            setGenres={setGenres}
+          />
         </Box>
+        <MovieList movies={movies} />
       </Box>
     </Box>
   );

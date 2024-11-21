@@ -6,6 +6,7 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 import genresOptions from '../constants/genres';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -22,12 +23,24 @@ export default function MovieFilter({
   setTitle,
   setGenres,
 }: MovieFilterProps) {
+  const [debouncedTitle, setDebouncedTitle] = useState(title || '');
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setTitle(debouncedTitle);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [debouncedTitle, setTitle]);
+
   return (
     <Stack spacing="10px">
       <TextField
         label="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={debouncedTitle}
+        onChange={(e) => setDebouncedTitle(e.target.value)}
       />
       <FormControl fullWidth>
         <InputLabel>Genre</InputLabel>

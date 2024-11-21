@@ -1,7 +1,7 @@
 // src/components/MovieList/MovieList.tsx
 
 import React from 'react';
-import { List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Grid2, List, ListItem, ListItemText, Typography } from '@mui/material';
 import Movie from '../Types/movie';
 import MovieCard from './MovieCard';
 
@@ -11,19 +11,17 @@ type MovieListProps = {
 
 const MovieList: React.FC<MovieListProps> = ({ movies }) => {
   return (
-    <div>
+    <Grid2 container spacing={2} padding={2}>
       {movies && movies.length > 0 ? (
-        <List>
+        <Grid2 size={16}>
           {movies.map((movie, index) => (
-            <ListItem key={index}>
-              <MovieCard movie={movie} />
-            </ListItem>
+            <MovieCard movie={movie} />
           ))}
-        </List>
+        </Grid2>
       ) : (
         <Typography>No movies found</Typography>
       )}
-    </div>
+    </Grid2>
   );
 };
 

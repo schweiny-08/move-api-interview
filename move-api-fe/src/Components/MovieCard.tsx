@@ -12,19 +12,24 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
     <Paper elevation={3} sx={{ margin: 2 }}>
       <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        {/* Movie Poster */}
-        {/* <CardMedia
-          component="img"
-          height="350"
-          image={`https://via.placeholder.com/300x450.png?text=${movie.title}`} // Replace with actual image URL
-          alt={movie.title}
-        /> */}
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography variant="h6" component="div" gutterBottom>
             {movie.title}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Genre: {movie.genres}
+            Release Year: {movie.year}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Genre: {movie.genres.join(', ')}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Director: {movie.director}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Main Actors: {movie.actors.join(', ')}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Rating: {movie.rating}
           </Typography>
         </CardContent>
       </Card>
